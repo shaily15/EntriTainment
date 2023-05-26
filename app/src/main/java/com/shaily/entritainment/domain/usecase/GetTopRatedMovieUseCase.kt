@@ -7,12 +7,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class GetPopularMovieUseCase @Inject constructor(
-    private val repository: MovieRepository) {
+class GetTopRatedMovieUseCase @Inject constructor(
+    private val repository: MovieRepository
+) {
+
     operator fun invoke(): Flow<Resource<List<Movie>>> = flow {
         emit(Resource.Loading("Loading..."))
         try {
-            emit(Resource.Success(repository.getPopularMovie()))
+            emit(Resource.Success(repository.getTopRatedMovie()))
         } catch (e: Exception) {
             emit(Resource.Error(e.message))
         }

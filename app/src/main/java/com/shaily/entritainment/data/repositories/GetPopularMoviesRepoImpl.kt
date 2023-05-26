@@ -1,6 +1,5 @@
 package com.shaily.entritainment.data.repositories
 
-import android.util.Log
 import com.shaily.entritainment.data.network.MoviesApiService
 import com.shaily.entritainment.domain.model.Movie
 import com.shaily.entritainment.domain.repository.MovieRepository
@@ -14,7 +13,16 @@ class GetPopularMoviesRepoImpl @Inject constructor(
 
     override suspend fun getPopularMovie(): List<Movie> {
        val response = safeApiRequest { moviesApiService.getPopularMovies() }
-        Log.d("imageUrl 1 ", response.results.toString())
+        return response.results?.toDomain()!!
+    }
+
+    override suspend fun getUpcomingMovie(): List<Movie> {
+        val response = safeApiRequest { moviesApiService.getUpcomingMovies() }
+        return response.results?.toDomain()!!
+    }
+
+    override suspend fun getTopRatedMovie(): List<Movie> {
+        val response = safeApiRequest { moviesApiService.getTopRatedMovies() }
         return response.results?.toDomain()!!
     }
 }
